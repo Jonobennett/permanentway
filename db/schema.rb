@@ -10,7 +10,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_03_01_164618) do
+ActiveRecord::Schema[8.1].define(version: 2026_04_12_172613) do
+  create_table "operators", force: :cascade do |t|
+    t.string "code"
+    t.datetime "created_at", null: false
+    t.string "name"
+    t.integer "stations_count", default: 0
+    t.datetime "updated_at", null: false
+  end
+
   create_table "sessions", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.string "ip_address"
@@ -27,16 +35,36 @@ ActiveRecord::Schema[8.1].define(version: 2026_03_01_164618) do
     t.float "lat"
     t.float "lon"
     t.string "name"
+    t.integer "operator_id"
     t.datetime "updated_at", null: false
+    t.index ["crscode"], name: "index_stations_on_crscode"
+    t.index ["operator_id"], name: "index_stations_on_operator_id"
   end
 
   create_table "users", force: :cascade do |t|
+    t.boolean "admin"
     t.datetime "created_at", null: false
     t.string "email_address", null: false
     t.string "password_digest", null: false
+    t.string "screen_name"
+    t.string "unconfirmed_email"
     t.datetime "updated_at", null: false
     t.index ["email_address"], name: "index_users_on_email_address", unique: true
   end
 
+  create_table "visits", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.integer "station_id", null: false
+    t.datetime "updated_at", null: false
+    t.integer "user_id", null: false
+    t.datetime "visit_date"
+    t.integer "visit_type"
+    t.index ["station_id"], name: "index_visits_on_station_id"
+    t.index ["user_id"], name: "index_visits_on_user_id"
+  end
+
   add_foreign_key "sessions", "users"
+  add_foreign_key "stations", "operators"
+  add_foreign_key "visits", "stations"
+  add_foreign_key "visits", "users"
 end

@@ -1,0 +1,2 @@
+module Picop::StationsHelper
+end

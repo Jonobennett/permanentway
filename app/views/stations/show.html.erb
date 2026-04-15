@@ -1,0 +1,21 @@
+<% content_for :title do %>
+<%= @station.name %> - PermanentWay.org
+<% end %>
+
+<h1 class="bd-title"><%= @station.name %></h1>
+<p><%= @station.crscode %></p>
+<p>Operated by <%= link_to @station.operator.name, operator_path(@station.operator) %></p>
+
+<div id="map" style="width: 600px; height: 400px;"></div>
+<script>
+
+	const map = L.map('map').setView([<%= @station.lat %>,<%= @station.lon %>], 13);
+
+	const tiles = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+		maxZoom: 19,
+		attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+	}).addTo(map);
+    
+    L.marker([<%= @station.lat %>,<%= @station.lon %>]).addTo(map);
+
+</script>

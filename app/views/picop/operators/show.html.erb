@@ -1,0 +1,9 @@
+<%= link_to "Back to all operators", picop_operators_path %>
+
+<h1><%= @operator.name %></h1>
+<p><%= @operator.code %></p>
+
+<div>
+  <%= link_to "Edit operator", edit_picop_operator_path(@operator)  %>
+  <%= button_to "Delete operator", picop_operator_path(@operator), method: :delete, data: { turbo_confirm: "Are you sure?" } %>
+</div>

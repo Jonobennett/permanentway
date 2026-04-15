@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title><%= content_for(:title) || "Permanentway.org" %></title>
+    <title><%= yield :title || "Permanentway.org" %></title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="application-name" content="Permanentway">
@@ -28,6 +28,30 @@
   </head>
 
   <body>
+    <div class="container">
+     <nav>
+      <%= link_to "Home", root_path %>
+        <% if authenticated? %>
+        <%= link_to "Settings", settings_root_path %>
+        <%= button_to "Log out", session_path, method: :delete, class: "btn btn-primary" %>
+        <% if Current.user.admin? %>
+         <h4>Engineering Works</h4>
+         <ul class="list-group">
+          <li><%= link_to "Users", picop_users_path %></li>
+          <li><%= link_to "Operators", picop_operators_path %></li>
+          <li><%= link_to "Stations", picop_stations_path %></li>
+         </ul>
+        <% end %>
+      <% else %>
+        <%= link_to "Sign Up", sign_up_path %>
+        <%= link_to "Login", new_session_path %>
+      <% end %>
+      
+
+    </nav>
+
     <%= yield %>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
   </body>
 </html>

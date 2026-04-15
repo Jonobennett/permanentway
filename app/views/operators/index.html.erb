@@ -1,0 +1,8 @@
+<% content_for :title do %>
+Operators - PermanentWay.org
+<% end %>
+
+<h1>Operators</h1>
+<% @operators.each do |operator| %>
+    <div><%= link_to operator.name, operator_path(operator) %></div>
+<% end %>

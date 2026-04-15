@@ -1,0 +1,16 @@
+<h1>Profile</h1>
+
+<%= form_with model: Current.user, url: settings_profile_path do |form| %>
+  <% if form.object.errors.any? %>
+    <div>Error: <%= form.object.errors.full_messages.first %></div>
+  <% end %>
+
+  <div class="mb-3">
+    <%= form.label :screen_name %>
+    <%= form.text_field :screen_name, required: true, autocomplete: "given-name" %>
+  </div>
+
+  <div>
+    <%= form.submit "Update profile" %>
+  </div>
+<% end %>

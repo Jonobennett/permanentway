@@ -1,0 +1,6 @@
+<% @operators.each do |operator| %>
+    <div>
+        <%= link_to operator.name, picop_operator_path(operator) %>
+    </div>
+<% end %>
+<div><%= link_to "New Operator", new_picop_operator_path %></div>

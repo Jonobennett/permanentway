@@ -1,7 +1,38 @@
 Rails.application.routes.draw do
+  get "/operators", to: "operators#index"
+  get "/operators/:id", to: "operators#show", as: "operator"
+
   resource :session
   resources :passwords, param: :token
-  get "stations/index"
+  resource :sign_up
+
+  namespace :settings do
+    resource :email, only: [ :show, :update ]
+    resource :password, only: [ :show, :update ]
+    resource :profile, only: [ :show, :update ]
+    resource :user, only: [ :show, :destroy ]
+
+    root to: redirect("/settings/profile")
+  end
+
+  namespace :email do
+    resources :confirmations, param: :token, only: [ :show ]
+  end
+
+  namespace :picop do
+    get "stations/index"
+    get "stations/show"
+    get "stations/new"
+    get "stations/edit"
+    get "stations/destroy"
+    resources :operators
+    resources :stations
+    resources :users
+  end
+
+  get "/stations", to: "stations#index"
+  get "/stations/:crscode", to: "stations#show", as: "station"
+
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
@@ -13,5 +44,5 @@ Rails.application.routes.draw do
   # get "service-worker" => "rails/pwa#service_worker", as: :pwa_service_worker
 
   # Defines the root path route ("/")
-  # root "posts#index"
+  root "stations#index"
 end

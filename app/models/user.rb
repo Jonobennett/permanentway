@@ -1,7 +1,19 @@
 class User < ApplicationRecord
   has_secure_password
   has_many :sessions, dependent: :destroy
-  has_many :visits
+  has_many :visits, dependent: :destroy
+  has_many :stations, -> { distinct }, through: :visits
+
+  attr_readonly :admin
 
   normalizes :email_address, with: ->(e) { e.strip.downcase }
+  validates_uniqueness_of :screen_name
+
+  generates_token_for :email_confirmation, expires_in: 7.days do
+    unconfirmed_email
+  end
+
+  def confirm_email
+    update(email_address: unconfirmed_email, unconfirmed_email: nil)
+  end
 end
