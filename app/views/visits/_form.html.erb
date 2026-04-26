@@ -1,0 +1,22 @@
+<%= form_with model:  @visit do |form| %>
+  <div>
+    <%= form.label :station, class: "form-label" %>
+    <%= form.collection_select :station_id, Station.order(:name), :id, :name, { :required => "true", :autofocus => "true" }, { :class => "form-control"} %>
+  </div>
+
+  <div class="mb-3">
+    <%= form.label :visit_type, class: "form-label" %>
+    <%= form.select :visit_type, [[ "Passed through", 1 ], [ "Called at" , 2], [ "Changed trains", 3 ], ["Started/ended journey", 4]],{}, {:class => "form-control"} %>
+  </div>
+
+  <div class="mb-3">
+    <%= form.label :visit_date, class: "form-label" %>
+    <%= form.datetime_field :visit_date, required: true, class: "form-control" %>
+  </div class="mb-3">
+
+  <%= form.hidden_field :user_id, value: Current.user.id %>
+
+  <div class="mb-3">
+    <%= form.submit class: "btn btn-primary" %>
+  </div>
+<% end %>

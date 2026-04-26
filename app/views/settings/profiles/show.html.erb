@@ -6,11 +6,11 @@
   <% end %>
 
   <div class="mb-3">
-    <%= form.label :screen_name %>
-    <%= form.text_field :screen_name, required: true, autocomplete: "given-name" %>
+    <%= form.label :screen_name, class: "form-label" %>
+    <%= form.text_field :screen_name, required: true, autocomplete: "given-name", class: "form-control" %>
   </div>
 
   <div>
-    <%= form.submit "Update profile" %>
+    <%= form.submit "Update profile", class: "btn btn-primary" %>
   </div>
 <% end %>

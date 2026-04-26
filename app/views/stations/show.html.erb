@@ -1,12 +1,12 @@
 <% content_for :title do %>
-<%= @station.name %> - PermanentWay.org
+<%= @station.name %> - 
 <% end %>
 
 <h1 class="bd-title"><%= @station.name %></h1>
 <p><%= @station.crscode %></p>
 <p>Operated by <%= link_to @station.operator.name, operator_path(@station.operator) %></p>
 
-<div id="map" style="width: 600px; height: 400px;"></div>
+<div id="map" style="width: 600px; height: 600px;"></div>
 <script>
 
 	const map = L.map('map').setView([<%= @station.lat %>,<%= @station.lon %>], 13);
@@ -19,3 +19,8 @@
     L.marker([<%= @station.lat %>,<%= @station.lon %>]).addTo(map);
 
 </script>
+
+<% if authenticated? %>
+	<p>You have visited this station <%= @visits.count %> times</p>
+	<div><%= link_to "Record a visit", new_visit_path, class: "btn btn-primary" %></div>
+<% end %>

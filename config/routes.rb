@@ -1,7 +1,4 @@
 Rails.application.routes.draw do
-  get "/operators", to: "operators#index"
-  get "/operators/:id", to: "operators#show", as: "operator"
-
   resource :session
   resources :passwords, param: :token
   resource :sign_up
@@ -20,11 +17,6 @@ Rails.application.routes.draw do
   end
 
   namespace :picop do
-    get "stations/index"
-    get "stations/show"
-    get "stations/new"
-    get "stations/edit"
-    get "stations/destroy"
     resources :operators
     resources :stations
     resources :users
@@ -32,6 +24,11 @@ Rails.application.routes.draw do
 
   get "/stations", to: "stations#index"
   get "/stations/:crscode", to: "stations#show", as: "station"
+
+  get "/operators", to: "operators#index"
+  get "/operators/:id", to: "operators#show", as: "operator"
+
+  resources :visits, only: [ :new, :create, :update, :destroy ]
 
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 

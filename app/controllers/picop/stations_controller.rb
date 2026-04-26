@@ -43,6 +43,6 @@ class Picop::StationsController < Picop::BaseController
     end
 
     def station_params
-      params.expect(station: [ :name, :crscode ])
+      params.expect(station: [ :name, :crscode, :operator_id ])
     end
 end

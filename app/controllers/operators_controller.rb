@@ -1,6 +1,6 @@
 class OperatorsController < ApplicationController
   def index
-    @operators = Operator.all
+    @operators = Operator.order(:name)
   end
 
   def show

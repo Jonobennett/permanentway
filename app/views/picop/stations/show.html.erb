@@ -3,7 +3,7 @@
 <p>Operated by <%= link_to @station.operator.name, picop_operator_path(@station.operator) %></p>
 
 <div>
-  <%= link_to "Edit station", edit_picop_station_path(@station)  %>
-  <%= button_to "Delete station", picop_station_path(@station), method: :delete, data: { turbo_confirm: "Are you sure?" } %>
+  <%= link_to "Edit station", edit_picop_station_path(@station), class: "btn btn-primary"  %>
+  <%= button_to "Delete station", picop_station_path(@station), method: :delete, data: { turbo_confirm: "Are you sure?" }, class: "btn btn-danger" %>
 </div>
 
