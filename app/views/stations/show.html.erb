@@ -6,7 +6,7 @@
 <p><%= @station.crscode %></p>
 <p>Operated by <%= link_to @station.operator.name, operator_path(@station.operator) %></p>
 
-<div id="map" style="width: 600px; height: 600px;"></div>
+<div id="map" style="width: 600px; height: 400px;"></div>
 <script>
 
 	const map = L.map('map').setView([<%= @station.lat %>,<%= @station.lon %>], 13);
@@ -22,5 +22,9 @@
 
 <% if authenticated? %>
 	<p>You have visited this station <%= @visits.count %> times</p>
+	<% @visits.order(:visit_date).last(5).each do |visit| %>
+	<p><%= visit.visit_date %></p>
+	<% end %>
+
 	<div><%= link_to "Record a visit", new_visit_path, class: "btn btn-primary" %></div>
 <% end %>

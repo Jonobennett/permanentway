@@ -16,11 +16,11 @@
             <div class="dropdown text-end"> <a href="#"
                     class="d-block link-body-emphasis text-decoration-none dropdown-toggle"
                     data-bs-toggle="dropdown" aria-expanded="false"> <img src="https://avatars.githubusercontent.com/u/252019?v=4&size=64"
-                        alt="Jono" width="32" height="32" class="rounded-circle"> </a>
+                        alt="Jono" width="32" height="32" class="rounded-circle"> <%= Current.user.screen_name %> </a>
                 <ul class="dropdown-menu text-small">
                     <!-- <li><a class="dropdown-item" href="#">New project...</a></li> --> 
                     <li><%= link_to "Settings", settings_root_path, class: "dropdown-item" %></li>
-                    <li><a class="dropdown-item" href="#">Profile</a></li>
+                    <li><%= link_to "Change password", settings_password_path, class: "dropdown-item" %></li>
                     <li>
                         <hr class="dropdown-divider">
                     </li>

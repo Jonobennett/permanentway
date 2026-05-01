@@ -10,6 +10,7 @@ class VisitsController < ApplicationController
 
   def create
     @visit = Visit.new(visit_params)
+    @visit.user = Current.user
     if @visit.save
       redirect_to station_path(@visit.station.crscode)
     else

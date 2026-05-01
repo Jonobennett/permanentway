@@ -1,9 +1,12 @@
 <% content_for :title do %>
-<%= @operator.name %> - PermanentWay.org
+<%= @operator.name %> - 
 <% end %>
 
 <h1><%= @operator.name %></h1>
-<p>Operates <%= @operator.stations_count %> stations</p>
+<p>Operates <%= total_stations = @operator.stations_count %> stations</p>
+<% if authenticated? && total_stations > 0 %>
+<p>You have visited <%= visits_count = Current.user.stations.where(operator: @operator).count %> (<%=  (100 * visits_count.to_f / total_stations.to_f).to_i %>%) of them.</p>
+<% end %>
 
 <div id="map" style="width: 600px; height: 400px;"></div>
 <script>
