@@ -2,7 +2,8 @@ class VisitsController < ApplicationController
   before_action :set_visit, except: [ :new, :create ]
 
   def new
-    @visit = Visit.new
+    @station = Station.find_by(crscode: params[:crscode])
+    @visit = Visit.new(station: @station)
   end
 
   def edit
@@ -39,5 +40,9 @@ class VisitsController < ApplicationController
 
   def visit_params
     params.expect(visit: [ :station_id, :user_id, :visit_type, :visit_date ])
+  end
+
+  def new_params
+    params.expect(visit: [ :crscode ])
   end
 end
