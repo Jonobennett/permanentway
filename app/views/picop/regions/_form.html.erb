@@ -1,0 +1,15 @@
+<%= form_with model: [ :picop, region ] do |form| %>
+  <div class="mb-3">
+    <%= form.label :name, class: "form-label" %>
+    <%= form.text_field :name, required: true, autofocus: true, class: "form-control" %>
+  </div>
+
+  <div class="mb-3">
+    <%= form.label :bounds, class: "form-label" %>
+    <%= form.text_field :bounda, required: false, class: "form-control" %>
+  </div>
+
+  <div class="mb-3">
+    <%= form.submit class: "btn btn-primary" %>
+  </div>
+<% end %>

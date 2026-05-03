@@ -1,0 +1,8 @@
+<% content_for :title do %>
+Regions - 
+<% end %>
+
+<h1>Regions</h1>
+<% @regions.each do |region| %>
+    <div class="mb-3"><%= link_to region.name, region_path(region) %>, <%= region.stations.count %> stations.</div>
+<% end %>

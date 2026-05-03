@@ -18,6 +18,7 @@ Rails.application.routes.draw do
 
   namespace :picop do
     resources :operators
+    resources :regions
     resources :stations
     resources :users
   end
@@ -28,6 +29,9 @@ Rails.application.routes.draw do
 
   get "/operators", to: "operators#index"
   get "/operators/:id", to: "operators#show", as: "operator"
+
+  get "/regions", to: "regions#index"
+  get "/regions/:id", to: "regions#show", as: "region"
 
   resources :visits, only: [ :new, :create, :update, :destroy ]
 

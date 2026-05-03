@@ -1,6 +1,6 @@
 source "https://rubygems.org"
 
-ruby file: ".ruby-version"
+# ruby file: ".ruby-version"
 
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
 gem "rails", "~> 8.1.2"
@@ -67,5 +67,8 @@ group :test do
   gem "selenium-webdriver"
 end
 
+# CSV support for importing data
 gem "csv"
+
+# PostGreSQL adapter
 gem "pg"

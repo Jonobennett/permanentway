@@ -10,12 +10,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_04_12_172613) do
+ActiveRecord::Schema[8.1].define(version: 2026_05_02_143155) do
   create_table "operators", force: :cascade do |t|
     t.string "code"
     t.datetime "created_at", null: false
     t.string "name"
     t.integer "stations_count", default: 0
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "regions", force: :cascade do |t|
+    t.string "bounds"
+    t.datetime "created_at", null: false
+    t.string "name"
+    t.integer "stations_count"
     t.datetime "updated_at", null: false
   end
 
@@ -36,9 +44,11 @@ ActiveRecord::Schema[8.1].define(version: 2026_04_12_172613) do
     t.float "lon"
     t.string "name"
     t.integer "operator_id"
+    t.integer "region_id", default: 1, null: false
     t.datetime "updated_at", null: false
     t.index ["crscode"], name: "index_stations_on_crscode"
     t.index ["operator_id"], name: "index_stations_on_operator_id"
+    t.index ["region_id"], name: "index_stations_on_region_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -65,6 +75,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_04_12_172613) do
 
   add_foreign_key "sessions", "users"
   add_foreign_key "stations", "operators"
+  add_foreign_key "stations", "regions"
   add_foreign_key "visits", "stations"
   add_foreign_key "visits", "users"
 end

@@ -1,0 +1,6 @@
+<% @regions.each do |region| %>
+    <div>
+        <%= link_to region.name, picop_region_path(region) %>
+    </div>
+<% end %>
+<div><%= link_to "New Region", new_picop_region_path, class: "btn btn-primary" %></div>
