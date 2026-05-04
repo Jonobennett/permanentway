@@ -30,7 +30,7 @@
   <body>
     <div class="container">
       <%= render "main_header" %>
-      <div class="row">
+      <div class="row row-cols-auto">
         <div class="col-sm-2">
           <nav>
             <% if authenticated? %>
@@ -40,8 +40,11 @@
             <% end %>
           </nav>
         </div>
-        <div class="col-10">
+        <div class="col-8">
           <%= yield %>
+        </div>
+        <div class="col-2 border">
+          Sidebar
         </div>
       </div>
     </div>

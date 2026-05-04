@@ -1,0 +1,21 @@
+<h1>Welcome to PermanentWay.org</h1>
+
+<p>You have visited <%= ticked_off = Current.user.stations.count %> stations.</p>
+<p>That leaves you <%= Station.all.count - ticked_off %> to visit</p>
+
+
+<div id="map" style="width: 80%; height: 600px;"></div>
+<script>
+
+	const map = L.map('map').setView([54.27,-2.66],5);
+
+	const tiles = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+		maxZoom: 19,
+		attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+	}).addTo(map);
+    
+    <% Station.all.where.not(id: Current.user.stations.all).each do |station| %>
+    L.marker([<%= station.lat %>,<%= station.lon %>] , {riseOnHover: true}).addTo(map).bindPopup('<%= link_to station.name, station_path(station.crscode) %>%>)');
+    <% end %>
+
+</script>

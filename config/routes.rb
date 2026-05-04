@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get "portal/index"
   resource :session
   resources :passwords, param: :token
   resource :sign_up
@@ -46,5 +47,6 @@ Rails.application.routes.draw do
   # get "service-worker" => "rails/pwa#service_worker", as: :pwa_service_worker
 
   # Defines the root path route ("/")
-  root "stations#index"
+  root "portal#index"
+  get "/missing", to: "portal#missing"
 end

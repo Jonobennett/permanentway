@@ -1,0 +1,93 @@
+<h1>Welcome to PermanentWay.org</h1>
+
+<p>You have visited <%= Current.user.stations.count %> stations.</p>
+
+
+<div id="map" style="width: 100%; height: 600px;"></div>
+<script>
+	const transport = L.tileLayer('https://api.thunderforest.com/transport/{z}/{x}/{y}.png?apikey=ff72333a30dd47c8911006adaa025bb4', {
+		maxZoom: 19,
+		attribution: 'Maps &copy; <a href="https://www.thunderforest.com/">Thunderforest</a>, Data &copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+	});
+
+	const osm = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+		maxZoom: 19,
+		attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+	});
+    
+    var baseMaps = {
+        "Transport map": transport,
+        "OpenStreetMap": osm
+    };
+
+    const map = L.map('map', {
+        center: [54.27,-2.66],
+        zoom: 5,
+        layers: [osm, transport]
+    });
+    
+    /* var overlayMaps = {
+        "Unvisited": unvisited,
+        "Passed through": passed_through,
+        "Called at": called_at,
+        "Changed trains": changed,
+        "Started/ended journey": gateline
+    }; */
+
+    var layerControl = L.control.layers(baseMaps).addTo(map);
+
+    var unvisitedIcon = L.icon({
+        iconUrl: '<%= image_path("grey-icon.png")  %>'
+    });
+
+    var gatelineIcon = L.icon({
+        iconUrl: '<%= image_path("green-icon.png")  %>'
+    });
+
+    var passed_through = L.layerGroup();
+    var called_at = L.layerGroup();
+    var changed = L.layerGroup();
+    var gateline = L.layerGroup();
+
+    <% Current.user.stations.each do |station| %>
+    var visitLayer;
+        switch(<%= station.visits.maximum("visit_type") %>) {
+            case 1:
+                visitLayer = passed_through;
+                visitIcon = unvisitedIcon;
+                break;
+            case 2:
+                visitLayer = called_at;
+                visitIcon = unvisitedIcon;
+                break;
+            case 3:
+                visitLayer = changed;
+                visitIcon = unvisitedIcon;
+                break;
+            case 4:
+                visitLayer = gateline;
+                visitIcon = gatelineIcon;
+        }
+        L.marker(
+            [<%= station.lat %>,<%= station.lon %>],
+            {
+                icon: visitIcon,
+                riseOnHover: true
+            }).addTo(visitLayer)
+            .bindPopup(
+                '<%= link_to station.name, station_path(station.crscode) %>'
+        );
+    <% end %>
+
+    var unvisited = L.layerGroup();
+ 
+    <% Station.all.where.not(id: Current.user.stations.all).each do |station| %>
+    L.marker([<%= station.lat %>,<%= station.lon %>] , {riseOnHover: true, icon: unvisitedIcon}).addTo(unvisited).bindPopup('<%= link_to station.name, station_path(station.crscode) %>%>)');
+    <% end %>
+
+    layerControl.addOverlay(unvisited, "Unvisited");
+    layerControl.addOverlay(passed_through, "Passed Through");
+    layerControl.addOverlay(called_at, "Called At");
+    layerControl.addOverlay(changed, "Changed Trains");
+    layerControl.addOverlay(gateline, "Started/Ended Journey");
+</script>
