@@ -3,14 +3,16 @@
 <tr>
     <th>Name</th>
     <th>CRS Code</th>
-    <th>Country</th>
+    <th>Region</th>
+    <th>Operator</th>
 </tr>
 
 <% @stations.each do |station| %>
 <tr>
     <td><%= link_to station.name, station_path(station.crscode) %></td>
     <td><%= station.crscode %></td>
-    <td><%= station.country %></td>
+    <td><%= station.region.name %></td>
+    <td><%= station.operator.name unless station.operator.nil? %></td>
 </tr>
 <% end %>
 </table>

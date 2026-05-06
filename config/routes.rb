@@ -17,6 +17,9 @@ Rails.application.routes.draw do
     resources :confirmations, param: :token, only: [ :show ]
   end
 
+  get "/picop/stations/import", to: "picop/stations#import"
+  post "/picop/stations/upload", to: "picop/stations#upload"
+
   namespace :picop do
     resources :operators
     resources :regions

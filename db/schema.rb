@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_05_02_143155) do
+ActiveRecord::Schema[8.1].define(version: 2026_05_06_165243) do
   create_table "operators", force: :cascade do |t|
     t.string "code"
     t.datetime "created_at", null: false
@@ -37,7 +37,6 @@ ActiveRecord::Schema[8.1].define(version: 2026_05_02_143155) do
   end
 
   create_table "stations", force: :cascade do |t|
-    t.string "country"
     t.datetime "created_at", null: false
     t.string "crscode"
     t.float "lat"

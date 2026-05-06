@@ -5,14 +5,14 @@
 <tr>
     <th>Name</th>
     <th>CRS Code</th>
-    <th>Country</th>
+    <th>Region</th>
 </tr>
 
 <% @stations.each do |station| %>
 <tr>
     <td><%= link_to station.name, picop_station_path(station) %></td>
     <td><%= station.crscode %></td>
-    <td><%= station.country %></td>
+    <td><%= station.region.name %></td>
 </tr>
 <% end %>
 </table>
