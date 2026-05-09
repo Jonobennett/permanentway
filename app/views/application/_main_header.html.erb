@@ -13,12 +13,16 @@
                 <li><a href="/regions" class="nav-link px-2 link-body-emphasis">Regions</a></li>
             </ul>
             <% if authenticated? %>
+            <div class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3">
+                <%= link_to "I'm at a station", "#", class: "btn btn-primary" %>
+            </div>
             <div class="dropdown text-end"> <a href="#"
                     class="d-block link-body-emphasis text-decoration-none dropdown-toggle"
                     data-bs-toggle="dropdown" aria-expanded="false"> <img src="https://avatars.githubusercontent.com/u/252019?v=4&size=64"
                         alt="Jono" width="32" height="32" class="rounded-circle"> <%= Current.user.screen_name %> </a>
                 <ul class="dropdown-menu text-small">
                     <!-- <li><a class="dropdown-item" href="#">New project...</a></li> --> 
+                    <li><%# link_to "Upload visits", upload_visits_path, class: "dropdown-item" %></li>
                     <li><%= link_to "Settings", settings_root_path, class: "dropdown-item" %></li>
                     <li><%= link_to "Change password", settings_password_path, class: "dropdown-item" %></li>
                     <li>

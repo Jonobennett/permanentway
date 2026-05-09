@@ -10,7 +10,6 @@
 
 <div id="map" style="width: 600px; height: 400px;"></div>
 <script>
-
 	const map = L.map('map').setView([54.27,-2.66],5);
 
 	const tiles = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -19,7 +18,7 @@
 	}).addTo(map);
     
     <% @operator.stations.each do |station| %>
-    L.marker([<%= station.lat %>,<%= station.lon %>] , {riseOnHover: true}).addTo(map).bindPopup('<%= link_to station.name, station_path(station.crscode) %>');
+    	L.marker([<%= station.lat %>,<%= station.lon %>] , {riseOnHover: true}).addTo(map).bindPopup('<%= link_to station.name, station_path(station.crscode) %>');
     <% end %>
 
 </script>

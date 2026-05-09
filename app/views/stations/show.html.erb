@@ -2,7 +2,7 @@
 <%= @station.name %> - 
 <% end %>
 
-<h1 class="bd-title"><%= @station.name %></h1>
+<h1 class="bd-title border"><%= @station.name %></h1>
 <p><%= @station.crscode %></p>
 <p>Operated by <%= link_to @station.operator.name, operator_path(@station.operator) %></p>
 
