@@ -1,9 +1,13 @@
+<p><%= link_to "Back to all stations", picop_stations_path %>
 <h1><%= @station.name %></h1>
 <p><%= @station.crscode %></p>
+<p><%= link_to @station.region.name, picop_region_path(@station.region) %> region</p>
 <p>Operated by <%= link_to @station.operator.name, picop_operator_path(@station.operator) %></p>
 
-<div>
+<div class="mb-3">
   <%= link_to "Edit station", edit_picop_station_path(@station), class: "btn btn-primary"  %>
+</div>
+<div class="mb-3">
   <%= button_to "Delete station", picop_station_path(@station), method: :delete, data: { turbo_confirm: "Are you sure?" }, class: "btn btn-danger" %>
 </div>
 

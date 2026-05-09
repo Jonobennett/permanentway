@@ -2,7 +2,7 @@ class Picop::StationsController < Picop::BaseController
   before_action :set_station, only: %i[ show edit update destroy ]
 
   def index
-    @stations = Station.all
+    @stations = Station.includes(:operator, :region).all
   end
 
   def show
@@ -59,9 +59,10 @@ class Picop::StationsController < Picop::BaseController
           Station.create!(stationhash)
           @created += 1
         end
-        Rails.logger.info row.inspect
+        # Rails.logger.info row.inspect
         # <CSV::Row "id":"po_1KE3FRDSYPMwkcNz9SFKuaYd" "Amount":"96.22" "Created (UTC)":"2022-01-04 02:59" "Arrival Date (UTC)":"2022-01-05 00:00" "Status":"paid">
       end
+      render "upload"
     end
   end
 
@@ -71,6 +72,6 @@ class Picop::StationsController < Picop::BaseController
     end
 
     def station_params
-      params.expect(station: [ :name, :crscode, :operator_id ])
+      params.expect(station: [ :name, :crscode, :operator_id, :region_id ])
     end
 end

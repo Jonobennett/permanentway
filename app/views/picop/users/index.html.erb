@@ -1,7 +1,7 @@
 <h1><%= pluralize @users.count, "user" %></h1>
 
 <% @users.each do |user| %>
-  <div>
+  <div class="mb-3">
     <%= link_to user.screen_name, picop_user_path(user) %>
   </div>
 <% end %>

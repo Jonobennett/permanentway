@@ -1,15 +1,15 @@
 <%= form_with model: [ :picop, user ] do |form| %>
-  <div>
-    <%= form.label :first_name %>
-    <%= form.text_field :screen_name, required: true, autofocus: true %>
+  <div class="mb-3">
+    <%= form.label :screen_name, class: "form-label" %>
+    <%= form.text_field :screen_name, required: true, autofocus: true, class: "form-control" %>
   </div>
 
-  <div>
-    <%= form.label :email_address %>
-    <%= form.email_field :email_address, required: true %>
+  <div class="mb-3">
+    <%= form.label :email_address, class: "form-label" %>
+    <%= form.email_field :email_address, required: true, class: "form-control" %>
   </div>
 
-  <div>
-    <%= form.submit %>
+  <div class="mb-3">
+    <%= form.submit class: "btn btn-primary" %>
   </div>
 <% end %>

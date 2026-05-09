@@ -1,8 +1,11 @@
 <%= link_to "Back to all regions", picop_regions_path %>
 
 <h1><%= @region.name %></h1>
+<p><%= @region.stations_count %> stations</p>
 
-<div>
+<div class="mb-3">
   <%= link_to "Edit region", edit_picop_region_path(@region), class: "btn btn-primary"  %>
+</div>
+<div class="mb-3">
   <%= button_to "Delete region", picop_region_path(@region), method: :delete, data: { turbo_confirm: "Are you sure?" }, class: "btn btn-danger" %>
 </div>
