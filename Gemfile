@@ -72,3 +72,6 @@ gem "csv"
 
 # PostGreSQL adapter
 gem "pg"
+
+# Redis for Render caching
+gem "redis"
