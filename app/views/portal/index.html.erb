@@ -16,32 +16,36 @@
 	});
     
     var baseMaps = {
-        "Transport map": transport,
-        "OpenStreetMap": osm
+        "OpenStreetMap": osm,
+        "Transport map": transport
     };
 
-    const map = L.map('map', {
-        center: [54.27,-2.66],
-        zoom: 5,
-        layers: [osm, transport]
-    });
-    
-    /* var overlayMaps = {
-        "Unvisited": unvisited,
-        "Passed through": passed_through,
-        "Called at": called_at,
-        "Changed trains": changed,
-        "Started/ended journey": gateline
-    }; */
-
-    var layerControl = L.control.layers(baseMaps).addTo(map);
-
-    var unvisitedIcon = L.icon({
-        iconUrl: '<%= image_path("grey-icon.png")  %>'
+    var PwayIcon = L.Icon.extend({
+        options: {
+            iconSize:     [20, 33],
+            iconAnchor:   [10, 33],
+            popupAnchor:  [-3, -76]
+        }
     });
 
-    var gatelineIcon = L.icon({
-        iconUrl: '<%= image_path("green-icon.png")  %>'
+    var unvisitedIcon = new PwayIcon({
+        iconUrl: '<%= image_path("grey-br-icon.png")  %>'
+    });
+
+    var passedIcon = new PwayIcon({
+        iconUrl: '<%= image_path("yellow-br-icon.png")  %>'
+    });
+
+    var calledAtIcon = new PwayIcon({
+        iconUrl: '<%= image_path("orange-br-icon.png")  %>'
+    });
+
+    var changedIcon = new PwayIcon({
+        iconUrl: '<%= image_path("blue-br-icon.png")  %>'
+    });
+
+    var gatelineIcon = new PwayIcon({
+        iconUrl: '<%= image_path("green-br-icon.png")  %>'
     });
 
     var passed_through = L.layerGroup();
@@ -54,15 +58,15 @@
         switch(<%= station.visits.maximum("visit_type") %>) {
             case 1:
                 visitLayer = passed_through;
-                visitIcon = unvisitedIcon;
+                visitIcon = passedIcon;
                 break;
             case 2:
                 visitLayer = called_at;
-                visitIcon = unvisitedIcon;
+                visitIcon = calledAtIcon;
                 break;
             case 3:
                 visitLayer = changed;
-                visitIcon = unvisitedIcon;
+                visitIcon = changedIcon;
                 break;
             case 4:
                 visitLayer = gateline;
@@ -79,6 +83,25 @@
         );
     <% end %>
 
+    var overlayMaps = {
+        "Passed through": passed_through,
+        "Called at": called_at,
+        "Changed trains": changed,
+        "Started/ended journey": gateline
+    }; 
+
+    const map = L.map('map', {
+        center: [54.27,-2.66],
+        zoom: 5,
+        layers: [osm, gateline]
+    });
+    
+    passed_through.addTo(map);
+    called_at.addTo(map);
+    changed.addTo(map);
+
+    var layerControl = L.control.layers(baseMaps, overlayMaps, {collapsed: false}).addTo(map);
+
     var unvisited = L.layerGroup();
  
     <% Station.all.where.not(id: Current.user.stations.all).each do |station| %>
@@ -86,8 +109,4 @@
     <% end %>
 
     layerControl.addOverlay(unvisited, "Unvisited");
-    layerControl.addOverlay(passed_through, "Passed Through");
-    layerControl.addOverlay(called_at, "Called At");
-    layerControl.addOverlay(changed, "Changed Trains");
-    layerControl.addOverlay(gateline, "Started/Ended Journey");
-</script>
+   </script>
