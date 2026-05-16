@@ -5,5 +5,7 @@ class RegionsController < ApplicationController
 
   def show
     @region = Region.find(params[:id])
+    @stations = Current.user.stations.where(region: @region)
+    @unvisited = @region.stations.all.where.not(id: @stations)
   end
 end
