@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-  get "portal/index"
   resource :session
   resources :passwords, param: :token
   resource :sign_up
@@ -52,4 +51,6 @@ Rails.application.routes.draw do
   # Defines the root path route ("/")
   root "portal#index"
   get "/missing", to: "portal#missing"
+  get "/import", to: "portal#import", as: "upload_visits"
+  post "/upload", to: "portal#upload"
 end

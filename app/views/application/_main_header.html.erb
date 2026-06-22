@@ -22,7 +22,7 @@
                         alt="Jono" width="32" height="32" class="rounded-circle"> <%= Current.user.screen_name %> </a>
                 <ul class="dropdown-menu text-small">
                     <!-- <li><a class="dropdown-item" href="#">New project...</a></li> --> 
-                    <li><%# link_to "Upload visits", upload_visits_path, class: "dropdown-item" %></li>
+                    <li><%= link_to "Upload visits", upload_visits_path, class: "dropdown-item" %></li>
                     <li><%= link_to "Settings", settings_root_path, class: "dropdown-item" %></li>
                     <li><%= link_to "Change password", settings_password_path, class: "dropdown-item" %></li>
                     <li>

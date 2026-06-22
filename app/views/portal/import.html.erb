@@ -1,0 +1,12 @@
+<h1>Upload visits</h1>
+<p>To upload visits you need to prepare a comma-separated values (CSV) file in the right format.</p>
+
+<%= form_with url: "upload" do |form| %>
+    <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
+    <div class="mb-3">
+        <%= form.file_field :csv_file, class: "form-control" %>
+    </div>
+    <div class="mb-3">
+        <%= form.submit "Upload", class: "btn btn-primary" %>
+    </div>
+<% end %>
