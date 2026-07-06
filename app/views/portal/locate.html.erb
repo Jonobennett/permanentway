@@ -1,0 +1,66 @@
+<div id="map" style="width: 100%; height: 600px; border: solid;"></div>
+<script>
+	const transport = L.tileLayer('https://api.thunderforest.com/transport/{z}/{x}/{y}.png?apikey=ff72333a30dd47c8911006adaa025bb4', {
+		maxZoom: 19,
+		attribution: 'Maps &copy; <a href="https://www.thunderforest.com/">Thunderforest</a>, Data &copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+	});
+
+	const osm = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+		maxZoom: 19,
+		attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+	});
+    
+    var baseMaps = {
+        "Transport map": transport,
+        "OpenStreetMap": osm
+    };
+
+    var PwayIcon = L.Icon.extend({
+        options: {
+            iconSize:     [20, 33],
+            iconAnchor:   [10, 33],
+            popupAnchor:  [-3, -76]
+        }
+    });
+
+    var visitIcon = new PwayIcon({
+        iconUrl: '<%= image_path("grey-br-icon.png")  %>'
+    });
+
+    var stations = L.layerGroup();
+
+    var overlayMaps = {
+        "Stations": stations
+    }; 
+
+    const map = L.map('map', {
+        center: [54.00,-2.55],
+        zoom: 5,
+        layers: [transport, stations]
+    });
+    
+    var layerControl = L.control.layers(baseMaps, overlayMaps, {collapsed: false}).addTo(map);
+
+    map.locate({setView: true, maxZoom: 16});
+
+    function onLocationFound(e) {
+        var radius = e.accuracy;
+        L.circle(e.latlng, radius).addTo(map);
+        <% @stations.each do |station| %>
+         L.marker(
+            [<%= station.lat %>,<%= station.lon %>],
+            {
+                icon: visitIcon,
+            }).addTo(stations)
+            .bindPopup('<%= link_to station.name, new_station_visit_path(station.crscode) %>');
+    <% end %>
+    }
+    map.on('locationfound', onLocationFound);
+
+    function onLocationError(e) {
+        alert(e.message);
+    }
+    map.on('locationerror', onLocationError);
+
+    
+</script>

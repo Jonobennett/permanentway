@@ -53,4 +53,5 @@ Rails.application.routes.draw do
   get "/missing", to: "portal#missing"
   get "/import", to: "portal#import", as: "upload_visits"
   post "/upload", to: "portal#upload"
+  get "/locate", to: "portal#locate"
 end

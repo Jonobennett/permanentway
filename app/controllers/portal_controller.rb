@@ -27,4 +27,8 @@ class PortalController < ApplicationController
       render "upload"
     end
   end
+
+  def locate
+    @stations = Station.all
+  end
 end
