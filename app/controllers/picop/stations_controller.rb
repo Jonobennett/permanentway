@@ -2,7 +2,7 @@ class Picop::StationsController < Picop::BaseController
   before_action :set_station, only: %i[ show edit update destroy ]
 
   def index
-    @stations = Station.includes(:operator, :region).order(:name)
+    @stations = Station.includes(:operator, :region).order(:crscode)
   end
 
   def show
