@@ -55,12 +55,12 @@
             .bindPopup('<%= link_to station.name, new_station_visit_path(station.crscode) %>');
     <% end %>
     }
+
     map.on('locationfound', onLocationFound);
 
     function onLocationError(e) {
         alert(e.message);
     }
     map.on('locationerror', onLocationError);
-
     
 </script>

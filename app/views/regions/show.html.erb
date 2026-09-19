@@ -1,6 +1,4 @@
-<% content_for :title do %>
-<%= @region.name %> - 
-<% end %>
+<% content_for :title do %><%= @region.name %> - <% end %>
 
 <h1><%= @region.name %></h1>
 <p><%= total_stations = @region.stations_count %> stations</p>
