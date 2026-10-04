@@ -36,7 +36,7 @@ Rails.application.routes.draw do
   get "/regions", to: "regions#index"
   get "/regions/:id", to: "regions#show", as: "region"
 
-  resources :visits, only: [ :new, :create, :update, :destroy ]
+  resources :visits
 
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
