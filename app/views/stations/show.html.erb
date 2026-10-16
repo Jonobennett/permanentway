@@ -9,10 +9,23 @@
 <div id="map" style="width: 100%; height: 600px; border: solid;"></div>
 <script>
 	const map = L.map('map').setView([<%= @station.lat %>,<%= @station.lon %>], 13);
-	const tiles = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+	const transport = L.tileLayer('https://api.thunderforest.com/transport/{z}/{x}/{y}.png?apikey=ff72333a30dd47c8911006adaa025bb4', {
+		maxZoom: 19,
+		attribution: 'Maps &copy; <a href="https://www.thunderforest.com/">Thunderforest</a>, Data &copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+	}).addTo(map);
+
+	const osm = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
 		maxZoom: 19,
 		attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-	}).addTo(map);
+	});
+    
+    var baseMaps = {
+        "Transport map": transport,
+        "OpenStreetMap": osm
+    };
+	
+	var layerControl = L.control.layers(baseMaps, null,	{collapsed: false}).addTo(map);
+
     L.marker([<%= @station.lat %>,<%= @station.lon %>]).addTo(map);
 </script>
 
@@ -25,8 +38,10 @@
 				<li class="list-group-item justify-content-between">
 					<img src="/ticket-detailed.svg" />
 					<%= visit.visit_date.strftime('%R on %A %e %B %Y') %> - <%= visit.visit_label %> this station.
-					<%= link_to image_tag("/pencil-square.svg"), edit_visit_path(visit) %>
-					<%= link_to image_tag("/trash.svg"), visit_path(visit), method: :delete, data: { turbo_confirm: "Are you sure?" } %>
+					<div>
+						<%= link_to image_tag("/pencil-square.svg"), edit_visit_path(visit) %>
+						<%= button_to image_tag("/trash.svg"), visit_path(visit), method: :delete, data: { turbo_confirm: "Are you sure?" }, class:"btn btn-link" %>
+					</div>
 				</li>
 			<% end %>
 		</ul>
