@@ -1,0 +1,27 @@
+<h1>Upload visits</h1>
+<p>To upload visits you need to prepare a comma-separated values (CSV) file in the right format.</p>
+
+<%= form_with url: "upload" do |form| %>
+    <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
+    <div class="mb-3">
+        <%= form.file_field :csv_file, class: "form-control" %>
+    </div>
+    <div class="mb-3">
+        <%= form.submit "Upload", class: "btn btn-primary" %>
+    </div>
+<% end %>
+
+<p>You can download a template import file, or create your own in the correct format:</p>
+<ul>
+    <li>The first row must be a header row containing at least the following headers: <code>crscode</code>, <code>visit_type</code> and optionally <code>date</code></li>
+    <li>You can include other columns but these will be ignored by the importer</li>
+    <li>If you don't include a date for a visit, the importer will use the current time and date</li>
+    <li>The <code>visit_type</code> column should contain a number, with the following meanings:
+    <ol>
+        <li>Passed through the station non-stop</li>
+        <li>Called at the station but stayed on the train</li>
+        <li>Changed trains at this station</li>
+        <li>Started or ended a journey at this station</li>
+    </ol></li>
+    <li>You can include multiple visits for any station in the same file</li>
+</ul>

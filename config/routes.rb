@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-  get "portal/index"
   resource :session
   resources :passwords, param: :token
   resource :sign_up
@@ -37,7 +36,7 @@ Rails.application.routes.draw do
   get "/regions", to: "regions#index"
   get "/regions/:id", to: "regions#show", as: "region"
 
-  resources :visits, only: [ :new, :create, :update, :destroy ]
+  resources :visits
 
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
@@ -52,4 +51,7 @@ Rails.application.routes.draw do
   # Defines the root path route ("/")
   root "portal#index"
   get "/missing", to: "portal#missing"
+  get "/import", to: "portal#import", as: "upload_visits"
+  post "/upload", to: "portal#upload"
+  get "/locate", to: "portal#locate"
 end
