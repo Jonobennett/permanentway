@@ -5,7 +5,7 @@
   </div>
 
   <div class="mb-3">
-    <%= form.label :crscode, class: "form-label" %>
+    <%= form.label :crscode, "CRS Code", class: "form-label" %>
     <%= form.text_field :crscode, required: true, class: "form-control" %>
   </div class="mb-3">
   
@@ -17,6 +17,13 @@
   <div class="mb-3">
     <%= form.label :region, class: "form-label" %>
     <%= form.collection_select :region_id, Region.order(:name), :id, :name, {}, { :class => "form-control"} %>
+  </div>
+
+  <div class="mb-3">
+    <%= form.label :lat, "Latitude", class: "form-label" %>
+    <%= form.text_field :lat, required: true, class: "form-control" %>
+    <%= form.label :lon, "Longitude", class: "form-label" %>
+    <%= form.text_field :lon, required: true, class: "form-control" %>
   </div>
 
   <div class="mb-3">

@@ -1,18 +1,31 @@
 <% content_for :title do %><%= @station.name %> - <% end %>
 <div class="bd-title border">
-<h1><%= @station.name %></h1>
-<p><%= @station.crscode %></p>
-<p><%= link_to @station.region.name, region_path(@station.region) %> region</p>
-<p>Operated by <%= link_to @station.operator.name, operator_path(@station.operator) %></p>
+	<h1><%= @station.name %></h1>
+	<p><%= @station.crscode %></p>
+	<p><%= link_to @station.region.name, region_path(@station.region) %> region</p>
+	<p>Operated by <%= link_to @station.operator.name, operator_path(@station.operator) %></p>
 </div>
 
-<div id="map" style="width: 600px; height: 400px;"></div>
+<div id="map" style="width: 100%; height: 600px; border: solid;"></div>
 <script>
 	const map = L.map('map').setView([<%= @station.lat %>,<%= @station.lon %>], 13);
-	const tiles = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+	const transport = L.tileLayer('https://api.thunderforest.com/transport/{z}/{x}/{y}.png?apikey=ff72333a30dd47c8911006adaa025bb4', {
+		maxZoom: 19,
+		attribution: 'Maps &copy; <a href="https://www.thunderforest.com/">Thunderforest</a>, Data &copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+	}).addTo(map);
+
+	const osm = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
 		maxZoom: 19,
 		attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-	}).addTo(map);
+	});
+    
+    var baseMaps = {
+        "Transport map": transport,
+        "OpenStreetMap": osm
+    };
+	
+	var layerControl = L.control.layers(baseMaps, null,	{collapsed: false}).addTo(map);
+
     L.marker([<%= @station.lat %>,<%= @station.lon %>]).addTo(map);
 </script>
 
@@ -22,12 +35,13 @@
 		<h4>Recent visits:</h4>
 		<ul class="list-group mb-3">
 			<% @visits.order(:visit_date).last(5).each do |visit| %>
-				<li class="list-group-item">
-					<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-ticket-detailed" viewBox="0 0 16 16">
-						<path d="M4 5.5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5m0 5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5M5 7a1 1 0 0 0 0 2h6a1 1 0 1 0 0-2z"/>
-						<path d="M0 4.5A1.5 1.5 0 0 1 1.5 3h13A1.5 1.5 0 0 1 16 4.5V6a.5.5 0 0 1-.5.5 1.5 1.5 0 0 0 0 3 .5.5 0 0 1 .5.5v1.5a1.5 1.5 0 0 1-1.5 1.5h-13A1.5 1.5 0 0 1 0 11.5V10a.5.5 0 0 1 .5-.5 1.5 1.5 0 1 0 0-3A.5.5 0 0 1 0 6zM1.5 4a.5.5 0 0 0-.5.5v1.05a2.5 2.5 0 0 1 0 4.9v1.05a.5.5 0 0 0 .5.5h13a.5.5 0 0 0 .5-.5v-1.05a2.5 2.5 0 0 1 0-4.9V4.5a.5.5 0 0 0-.5-.5z"/>
-					</svg>
-					<%= visit.visit_date.strftime('%R on %A %e %B %Y') %> - <%= visit.visit_label %>
+				<li class="list-group-item justify-content-between">
+					<img src="/ticket-detailed.svg" />
+					<%= visit.visit_date.strftime('%R on %A %e %B %Y') %> - <%= visit.visit_label %> this station.
+					<div>
+						<%= link_to image_tag("/pencil-square.svg"), edit_visit_path(visit) %>
+						<%= button_to image_tag("/trash.svg"), visit_path(visit), method: :delete, data: { turbo_confirm: "Are you sure?" }, class:"btn btn-link" %>
+					</div>
 				</li>
 			<% end %>
 		</ul>
