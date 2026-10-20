@@ -2,7 +2,7 @@ class Picop::StationsController < Picop::BaseController
   before_action :set_station, only: %i[ show edit update destroy ]
 
   def index
-    @stations = Station.includes(:operator, :region).all
+    @stations = Station.includes(:operator, :region).order(:crscode)
   end
 
   def show
@@ -72,6 +72,6 @@ class Picop::StationsController < Picop::BaseController
     end
 
     def station_params
-      params.expect(station: [ :name, :crscode, :operator_id, :region_id ])
+      params.expect(station: [ :name, :crscode, :operator_id, :region_id, :lat, :lon ])
     end
 end

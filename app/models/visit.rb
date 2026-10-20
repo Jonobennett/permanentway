@@ -6,8 +6,8 @@ class Visit < ApplicationRecord
     strings = {
       1 => "Passed through",
       2 => "Called at",
-      3 => "Changed trains",
-      4 => "Started/ended journey"
+      3 => "Changed trains at",
+      4 => "Started/ended journey at"
     }
     strings[self.visit_type]
   end

@@ -75,3 +75,5 @@ gem "pg"
 
 # Redis for Render caching
 gem "redis"
+
+gem "sidekiq", "~> 8.1"
