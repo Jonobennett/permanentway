@@ -1,4 +1,4 @@
-<div id="map" style="width: 100%; height: 600px;"></div>
+<div id="map" style="width: 100%; height: 600px; border: solid;"></div>
 <script>
 	const transport = L.tileLayer('https://api.thunderforest.com/transport/{z}/{x}/{y}.png?apikey=ff72333a30dd47c8911006adaa025bb4', {
 		maxZoom: 19,
@@ -11,8 +11,8 @@
 	});
     
     var baseMaps = {
-        "OpenStreetMap": osm,
-        "Transport map": transport
+        "Transport map": transport,
+        "OpenStreetMap": osm
     };
 
     var PwayIcon = L.Icon.extend({
@@ -86,9 +86,9 @@
     <% end %>
 
     const map = L.map('map', {
-        center: [54.27,-2.66],
+        center: [54.00,-2.55],
         zoom: 5,
-        layers: [osm, gateline]
+        layers: [transport, gateline]
     });
     
     passed_through.addTo(map);
@@ -108,4 +108,5 @@
     <% end %>
 
     layerControl.addOverlay(unvisited, "Unvisited");
+    
 </script>
