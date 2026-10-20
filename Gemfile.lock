@@ -381,6 +381,7 @@ DEPENDENCIES
   rails (~> 8.1.2)
   redis
   rubocop-rails-omakase
+  ruby-vips (~> 2.0)
   selenium-webdriver
   sidekiq (~> 8.1)
   solid_cable
