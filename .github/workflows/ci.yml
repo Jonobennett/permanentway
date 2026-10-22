@@ -6,6 +6,16 @@ on:
     branches: [ main ]
 
 jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v6
+      - name: Install libvips
+        run: |
+          sudo apt-get update
+          sudo apt-get install libvips
+          
   scan_ruby:
     runs-on: ubuntu-latest
 
