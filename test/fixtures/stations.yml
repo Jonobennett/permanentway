@@ -5,11 +5,9 @@ one:
   crscode: MyString
   lat: 1.5
   lon: 1.5
-  country: MyString
 
 two:
   name: MyString
   crscode: MyString
   lat: 1.5
   lon: 1.5
-  country: MyString
