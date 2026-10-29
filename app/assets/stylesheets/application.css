@@ -9,11 +9,28 @@
  * Consider organizing styles into separate files for maintainability.
  */
 
- @font-face {
+@font-face {
   font-family: "Alphabet";
   src: url("/britrln_.ttf");
 }
 
 h1, h2, h3, h4, h5, h6 {
   font-family: "Alphabet";
+}
+
+.pway-passed {
+  background-color: yellow !important;
+  color: black !important;
+}
+
+.pway-called {
+  background-color: orange !important;
+}
+
+.pway-changed {
+  background-color: blue !important;
+}
+
+.pway-gateline {
+  background-color: green !important;
 }
