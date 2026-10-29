@@ -1,0 +1,14 @@
+<div class="progress-stacked m-1" style="height: 25px">
+    <div class="progress" role="progressbar" aria-label="Started/finished journey" aria-valuenow="<%= visit_types[:gateline] %>" aria-valuemin="0" aria-valuemax="100" style="width: <%= visit_types[:gateline] %>%; height:25px">
+        <div class="progress-bar pway-gateline"><%= visit_types[:gateline] %>%</div>
+    </div>
+    <div class="progress" role="progressbar" aria-label="Changed trains" aria-valuenow="<%= visit_types[:changed] %>" aria-valuemin="0" aria-valuemax="100" style="width: <%= visit_types[:changed] %>%; height:25px">
+        <div class="progress-bar pway-changed"><%= visit_types[:changed] %>%</div>
+    </div>
+    <div class="progress" role="progressbar" aria-label="Called at" aria-valuenow="<%= visit_types[:called] %>" aria-valuemin="0" aria-valuemax="100" style="width: <%= visit_types[:called] %>%; height:25px">
+        <div class="progress-bar pway-called"><%= visit_types[:called] %>%</div>
+    </div>
+    <div class="progress" role="progressbar" aria-label="Passed through" aria-valuenow="<%= visit_types[:passed_through] %>" aria-valuemin="0" aria-valuemax="100" style="width: <%= visit_types[:passed_through] %>%; height:25px">
+        <div class="progress-bar pway-passed"><%= visit_types[:passed_through] %>%</div>
+    </div>
+</div>

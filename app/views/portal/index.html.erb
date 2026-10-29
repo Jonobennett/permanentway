@@ -1,4 +1,5 @@
 <h1>Welcome to PermanentWay.org</h1>
 
-<p>You have visited <%= @stations.count %> stations.</p>
+<p>You have visited <%= visited_stations = @stations.count %> stations out of a total of <%= total_stations = Station.count %> (<%=  (100 * visited_stations.to_f / total_stations.to_f).to_i %>%).</p>
+    <%= render partial: "progress_bar", locals: {visit_types: @visit_breakdown} %>
 <%= render "map", showunvisited: false %>

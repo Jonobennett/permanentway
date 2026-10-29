@@ -2,6 +2,8 @@ class PortalController < ApplicationController
   def index
     @stations = Current.user.stations
     @unvisited = Station.all.where.not(id: @stations.all)
+    total_stations = Station.all.count
+    @visit_breakdown = Current.user.visits_breakdown
   end
 
   def import
