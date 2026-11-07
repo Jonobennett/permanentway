@@ -6,6 +6,7 @@ module Progress extend ActiveSupport::Concern
       called: 0,
       passed_through: 0
     }
+    return breakdown if self.station_count == 0
     self.max_levels.each_value { |level|
       case level
       when 1
