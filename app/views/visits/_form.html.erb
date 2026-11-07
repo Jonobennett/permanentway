@@ -11,7 +11,7 @@
 
   <div class="mb-3">
     <%= form.label :visit_date, class: "form-label" %>
-    <%= form.datetime_field :visit_date, required: true, class: "form-control" %>
+    <%= form.datetime_field :visit_date, required: true, value: Time.now, class: "form-control" %>
   </div class="mb-3">
 
   <%# form.hidden_field :user_id, value: Current.user.id %>
