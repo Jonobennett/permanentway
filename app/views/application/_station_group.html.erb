@@ -1,0 +1,5 @@
+<div class="list-group-item">
+    <h5><%= link_to station_group.name, path_to_group %></h5>
+    <p>You have visited <%= station_group.visit_count %> of <%= station_group.stations_count %> stations</p>
+    <%= render partial: "application/progress_bar", locals: { visit_types: station_group.visits_breakdown } %>
+</div>  

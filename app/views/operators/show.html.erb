@@ -1,11 +1,10 @@
-<% content_for :title do %>
-<%= @operator.name %> - 
-<% end %>
+<% content_for :title do %><%= @operator.name %> - <% end %>
 
 <h1><%= @operator.name %></h1>
 <p>Operates <%= total_stations = @operator.stations_count %> stations</p>
 <% if authenticated? && total_stations > 0 %>
-<p>You have visited <%= visits_count = Current.user.stations.where(operator: @operator).count %> (<%=  (100 * visits_count.to_f / total_stations.to_f).to_i %>%) of them.</p>
+    <p>You have visited <%= @operator.visit_count %> (<%=  (100 * @operator.visit_count.to_f / total_stations.to_f).to_i %>%) of them.</p>
+    <%= render partial: "application/progress_bar", locals: { visit_types: @operator.visits_breakdown } %>
 <% end %>
 
 <%= render "map", showunvisited: true %>
