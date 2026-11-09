@@ -34,3 +34,27 @@ h1, h2, h3, h4, h5, h6 {
 .pway-gateline {
   background-color: green !important;
 }
+
+:root {
+  --bs-primary: #1f4b61;
+  --pw-rail-blue: #1f4b61;
+}
+
+.pway-navbar {
+  color: white;
+  background-color: var(--pw-rail-blue);
+  --bs-navbar-link-color: white;
+  --bs-nav-link-hover-color: lightblue;
+}
+
+.navbar-brand {
+  color: white;
+}
+
+.nav-link {
+  color: white;
+}
+
+.nav-link:hover, .navbar-brand:hover {
+  color: lightblue;
+}
