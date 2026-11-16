@@ -1,4 +1,4 @@
-<div id="map" style="width: 100%; height: 600px; border: solid;"></div>
+<div id="map" class="mx-0 mp-0" style="width: 100%; height: 600px; border: solid;"></div>
 <script>
 	const transport = L.tileLayer('https://api.thunderforest.com/transport/{z}/{x}/{y}.png?apikey=ff72333a30dd47c8911006adaa025bb4', {
 		maxZoom: 19,
@@ -10,12 +10,12 @@
 		attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
 	});
     
-    var baseMaps = {
+    const baseMaps = {
         "Transport map": transport,
         "OpenStreetMap": osm
     };
 
-    var PwayIcon = L.Icon.extend({
+    const PwayIcon = L.Icon.extend({
         options: {
             iconSize:     [20, 33],
             iconAnchor:   [10, 33],
@@ -23,65 +23,49 @@
         }
     });
 
-    var unvisitedIcon = new PwayIcon({
+    const unvisitedIcon = new PwayIcon({
         iconUrl: '<%= image_path("grey-br-icon.png")  %>'
     });
 
-    var passedIcon = new PwayIcon({
+    const passedIcon = new PwayIcon({
         iconUrl: '<%= image_path("yellow-br-icon.png")  %>'
     });
 
-    var calledAtIcon = new PwayIcon({
+    const calledAtIcon = new PwayIcon({
         iconUrl: '<%= image_path("orange-br-icon.png")  %>'
     });
 
-    var changedIcon = new PwayIcon({
+    const changedIcon = new PwayIcon({
         iconUrl: '<%= image_path("blue-br-icon.png")  %>'
     });
 
-    var gatelineIcon = new PwayIcon({
+    const gatelineIcon = new PwayIcon({
         iconUrl: '<%= image_path("green-br-icon.png")  %>'
     });
 
-    var passed_through = L.layerGroup();
-    var called_at = L.layerGroup();
-    var changed = L.layerGroup();
-    var gateline = L.layerGroup();
+    let passed_through = L.layerGroup();
+    let called_at = L.layerGroup();
+    let changed = L.layerGroup();
+    let gateline = L.layerGroup();
 
-    var overlayMaps = {
+    const overlayMaps = {
         "Passed through": passed_through,
         "Called at": called_at,
         "Changed trains": changed,
         "Started/ended journey": gateline
     }; 
 
+    let visitLayer;
     <% @stations.each do |station| %>
-    var visitLayer;
-        switch(<%= station.visits.maximum("visit_type") %>) {
-            case 1:
-                visitLayer = passed_through;
-                visitIcon = passedIcon;
-                break;
-            case 2:
-                visitLayer = called_at;
-                visitIcon = calledAtIcon;
-                break;
-            case 3:
-                visitLayer = changed;
-                visitIcon = changedIcon;
-                break;
-            case 4:
-                visitLayer = gateline;
-                visitIcon = gatelineIcon;
-        }
         L.marker(
             [<%= station.lat %>,<%= station.lon %>],
             {
-                icon: visitIcon,
+                icon: <%= station.map_icon %>,
                 riseOnHover: true
-            }).addTo(visitLayer)
-            .bindPopup(
-                '<%= link_to station.name, station_path(station.crscode) %>'
+            }
+        ).addTo(<%= station.map_layer %>)
+        .bindPopup(
+            '<%= link_to station.name, station_path(station.crscode) %>'
         );
     <% end %>
 
@@ -95,9 +79,9 @@
     called_at.addTo(map);
     changed.addTo(map);
 
-    var layerControl = L.control.layers(baseMaps, overlayMaps, {collapsed: false}).addTo(map);
+    const layerControl = L.control.layers(baseMaps, overlayMaps, {collapsed: false}).addTo(map);
 
-    var unvisited = L.layerGroup();
+    let unvisited = L.layerGroup();
  
     <% @unvisited.each do |station| %>
         L.marker([<%= station.lat %>,<%= station.lon %>] , {riseOnHover: true, icon: unvisitedIcon}).addTo(unvisited).bindPopup('<%= link_to station.name, station_path(station.crscode) %>');
