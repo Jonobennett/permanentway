@@ -65,7 +65,7 @@
             }
         ).addTo(<%= station.map_layer %>)
         .bindPopup(
-            '<%= link_to station.name, station_path(station.crscode) %>'
+            '<%= link_to station.name, station_path(station.crscode), class: "pway-maplink" %>'
         );
     <% end %>
 
@@ -84,7 +84,7 @@
     let unvisited = L.layerGroup();
  
     <% @unvisited.each do |station| %>
-        L.marker([<%= station.lat %>,<%= station.lon %>] , {riseOnHover: true, icon: unvisitedIcon}).addTo(unvisited).bindPopup('<%= link_to station.name, station_path(station.crscode) %>');
+        L.marker([<%= station.lat %>,<%= station.lon %>] , {riseOnHover: true, icon: unvisitedIcon}).addTo(unvisited).bindPopup('<%= link_to station.name, station_path(station.crscode), class: "pway-maplink" %>');
     <% end %>
 
     <% if local_assigns[:showunvisited] %>

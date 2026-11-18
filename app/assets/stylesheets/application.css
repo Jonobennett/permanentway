@@ -10,12 +10,17 @@
  */
 
 @font-face {
-  font-family: "Alphabet";
+  font-family: "Alphabet-dark";
+  src: url("/britrdn_.woff2");
+}
+
+@font-face {
+  font-family: "Alphabet-light";
   src: url("/britrln_.ttf");
 }
 
 h1, h2, h3, h4, h5, h6 {
-  font-family: "Alphabet";
+  font-family: "Alphabet-dark", sans-serif;
 }
 
 .pway-passed {
@@ -43,12 +48,15 @@ h1, h2, h3, h4, h5, h6 {
 .pway-navbar {
   color: white;
   background-color: var(--pw-rail-blue);
+  --bs-navbar-color: white;
   --bs-navbar-link-color: white;
   --bs-nav-link-hover-color: lightblue;
 }
 
 .navbar-brand {
   color: white;
+  font-family: "Alphabet", sans-serif;
+  font-size: 1.5rem;
 }
 
 .nav-link {
@@ -57,4 +65,9 @@ h1, h2, h3, h4, h5, h6 {
 
 .nav-link:hover, .navbar-brand:hover {
   color: lightblue;
+}
+
+.pway-maplink {
+  font-family: "Alphabet-light", system-ui, sans-serif;
+  font-size: 1rem;
 }
