@@ -4,7 +4,7 @@ class OperatorsController < ApplicationController
   end
 
   def show
-    @operator = Operator.find(params[:id])
+    @operator = Operator.find_by(code: params[:code])
     @stations = Current.user.stations.where(operator: @operator)
     @unvisited = @operator.stations.all.where.not(id: @stations)
   end

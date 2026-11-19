@@ -4,6 +4,10 @@ class Operator < ApplicationRecord
   validates :code, presence: true, uniqueness: true
   has_many :stations
 
+  def to_param
+    code
+  end
+
   def visit_count
     Current.user.stations.where(operator_id: self.id).count
   end

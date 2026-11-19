@@ -31,7 +31,7 @@ Rails.application.routes.draw do
   get "/stations/:crscode/visits/new", to: "visits#new", as: "new_station_visit"
 
   get "/operators", to: "operators#index"
-  get "/operators/:id", to: "operators#show", as: "operator"
+  get "/operators/:code", to: "operators#show", as: "operator"
 
   get "/regions", to: "regions#index"
   get "/regions/:id", to: "regions#show", as: "region"
