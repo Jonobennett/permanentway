@@ -1,61 +1,5 @@
 <div id="map" class="mx-0 mp-0" style="width: 100%; height: 600px; border: solid;"></div>
 <script>
-	const transport = L.tileLayer('https://api.thunderforest.com/transport/{z}/{x}/{y}.png?apikey=ff72333a30dd47c8911006adaa025bb4', {
-		maxZoom: 19,
-		attribution: 'Maps &copy; <a href="https://www.thunderforest.com/">Thunderforest</a>, Data &copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-	});
-
-	const osm = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-		maxZoom: 19,
-		attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-	});
-    
-    const baseMaps = {
-        "Transport map": transport,
-        "OpenStreetMap": osm
-    };
-
-    const PwayIcon = L.Icon.extend({
-        options: {
-            iconSize:     [20, 33],
-            iconAnchor:   [10, 33],
-            popupAnchor:  [-3, -76]
-        }
-    });
-
-    const unvisitedIcon = new PwayIcon({
-        iconUrl: '<%= image_path("grey-br-icon.png")  %>'
-    });
-
-    const passedIcon = new PwayIcon({
-        iconUrl: '<%= image_path("yellow-br-icon.png")  %>'
-    });
-
-    const calledAtIcon = new PwayIcon({
-        iconUrl: '<%= image_path("orange-br-icon.png")  %>'
-    });
-
-    const changedIcon = new PwayIcon({
-        iconUrl: '<%= image_path("blue-br-icon.png")  %>'
-    });
-
-    const gatelineIcon = new PwayIcon({
-        iconUrl: '<%= image_path("green-br-icon.png")  %>'
-    });
-
-    let passed_through = L.layerGroup();
-    let called_at = L.layerGroup();
-    let changed = L.layerGroup();
-    let gateline = L.layerGroup();
-
-    const overlayMaps = {
-        "Passed through": passed_through,
-        "Called at": called_at,
-        "Changed trains": changed,
-        "Started/ended journey": gateline
-    }; 
-
-    let visitLayer;
     <% @stations.each do |station| %>
         L.marker(
             [<%= station.lat %>,<%= station.lon %>],
@@ -69,11 +13,7 @@
         );
     <% end %>
 
-    const map = L.map('map', {
-        center: [54.00,-2.55],
-        zoom: 5,
-        layers: [transport, gateline]
-    });
+    const map = new PwayMap('map');
     
     passed_through.addTo(map);
     called_at.addTo(map);
