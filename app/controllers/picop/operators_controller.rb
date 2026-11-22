@@ -39,7 +39,7 @@ class Picop::OperatorsController < Picop::BaseController
 
   private
     def set_operator
-      @operator = Operator.find(params[:id])
+      @operator = Operator.find_by(params[:code])
     end
 
     def operator_params
